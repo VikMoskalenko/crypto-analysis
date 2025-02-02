@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crypto Insights</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .coin-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .coin {
+            width: 100px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+        <h1>Welcome to Crypto Insights</h1>
+        <p>Your tool to analyze crypto trends using Fibonacci sequences.</p>
+        <a href="/crypto">Check Crypto Trends</a>
+
+        <div class="coin-container">
+            <img src="{{ url_for('static', filename='coin.png') }}" alt="Coin" class="coin" id="coin">
+        </div>
+</div>
+
+
+ <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

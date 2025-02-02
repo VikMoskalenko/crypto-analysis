@@ -1,0 +1,115 @@
+/* General styling for both pages */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styling */
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Paragraph styling */
+p {
+    text-align: center;
+    font-size: 1.1em;
+}
+
+/* Link styling */
+a {
+    text-align: center;
+    width: 40%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+a:hover {
+    background-color: #2980b9;
+}
+
+/* Crypto Analysis Page Specific Styling */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #2c3e50;
+    margin-top: 40px;
+}
+
+form {
+    margin-top: 20px;
+    text-align: center;
+}
+
+form input[type="text"] {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+form button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #27ae60;
+    color: #fff;
+    font-size: 1em;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #1e8449;
+}
+
+h3 {
+    text-align: center;
+    color: #d35400;
+    margin-top: 30px;
+}
+
+.coin-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.coin {
+    width: 100px; /* adjust as needed */
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
