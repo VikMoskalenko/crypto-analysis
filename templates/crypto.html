@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <title>Crypto Analysis</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
+<body onload="javascript:startCanvasDraw()">
+<canvas id="mainStage"></canvas>
     <div class="container">
         <h1>Top 10 Cryptos</h1>
         <table border="1" cellpadding="5">
@@ -45,11 +47,22 @@
             <button type="submit">Analyze</button>
         </form>
 
-
-        {% if analysis %}
+{% if analysis %}
             <h3>{{ analysis }}</h3>
+            <br>
+            {% if recommendation == "BUY" %}
+                <button style="background-color: green; color: white; padding: 10px; border: none; display: block; margin: 0 auto;">BUY</button>
+            {% elif recommendation == "SELL" %}
+                <button style="background-color: red; color: white; padding: 10px; border: none; display: block; margin: 0 auto;">SELL</button>
+            {% else %}
+                <button disabled style="background-color: gray; color: white; padding: 10px; border: none; display: block; margin: 0 auto;">HOLD</button>
+            {% endif %}
         {% endif %}
+
+{#        {% if analysis %}#}
+{#            <h3>{{ analysis }}</h3>#}
+{#        {% endif %}#}
     </div>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
 </body>
 </html>

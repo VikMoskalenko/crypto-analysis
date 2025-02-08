@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+ <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <title>Crypto Insights</title>
      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
@@ -20,7 +21,9 @@
         }
     </style>
 </head>
-<body>
+<body onload="javascript:startCanvasDraw()">
+<canvas id="mainStage"></canvas>
+{#<canvas id="canvas"></canvas>#}
 <div class="container">
         <h1>Welcome to Crypto Insights</h1>
         <p>Your tool to analyze crypto trends using Fibonacci sequences.</p>
