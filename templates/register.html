@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <meta charset="UTF-8">
     <title>Register</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
- <h2>Register</h2>
+<body onload="javascript:startCanvasDraw()">
+<canvas id="mainStage"></canvas>
+ <h4>Register</h4>
     <form method="POST">
-        <label>Username:</label>
-        <input type="text" name="username" required>
-        <label>Password:</label>
-        <input type="password" name="password" required>
-        <button type="submit">Register</button>
+        <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+    </div>
     </form>
     <a href="{{ url_for('login') }}">Already have an account? Login</a>
 </body>
