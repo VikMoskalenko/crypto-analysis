@@ -10,4 +10,5 @@ At Fibonacci level 0.236, expected increase of 5.23%.
 At Fibonacci level 0.382, expected increase of 12.45%.
 At Fibonacci level 0.618, expected increase of 25.67%.
 
+Bacground author is https://github.com/pesse/matrix_background.
 
