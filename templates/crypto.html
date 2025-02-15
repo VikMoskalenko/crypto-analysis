@@ -5,61 +5,79 @@
     <title>Crypto Analysis</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<header>
-    <ul class="nav justify-content-center">
-  <li class="nav-item">
-    <a class="nav-link active" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
 
-</ul>
-</header>
 <body onload="javascript:startCanvasDraw()">
 <canvas id="mainStage"></canvas>
     <div class="container">
         <h1>Top 10 Cryptos</h1>
-        <table border="1" cellpadding="5">
-            <thead>
-                <tr>
-                    <th>Coin</th>
-                    <th>Price (USD)</th>
-                    <th>Change 1h (%)</th>
-                    <th>Change 24h (%)</th>
-                    <th>Change 7d (%)</th>
-                    <th>24h Volume</th>
-                    <th>Market Cap</th>
-                    <th>Last Updated</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for crypto in cryptos %}
-                <tr>
-                    <td>
-                        <img src="{{ crypto['image'] }}" alt="{{ crypto['name'] }}" width="20">
-                        {{ crypto['name'] }}
-                    </td>
-                    <td>${{ crypto['current_price'] }}</td>
-                    <td>{{ crypto['price_change_percentage_1h_in_currency'] | round(2) if crypto['price_change_percentage_1h_in_currency'] else 'N/A' }}</td>
-                    <td>{{ crypto['price_change_percentage_24h_in_currency'] | round(2) if crypto['price_change_percentage_24h_in_currency'] else 'N/A' }}</td>
-                    <td>{{ crypto['price_change_percentage_7d_in_currency'] | round(2) if crypto['price_change_percentage_7d_in_currency'] else 'N/A' }}</td>
-                    <td>${{ crypto['total_volume'] | int }}</td>
-                    <td>${{ crypto['market_cap'] | int }}</td>
-                    <td>{{ crypto['last_updated'] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+{#        <table border="1" cellpadding="5">#}
+{#            <thead>#}
+{#                <tr>#}
+{#                    <th>Coin</th>#}
+{#                    <th>Price (USD)</th>#}
+{#                    <th>Change 1h (%)</th>#}
+{#                    <th>Change 24h (%)</th>#}
+{#                    <th>Change 7d (%)</th>#}
+{#                    <th>24h Volume</th>#}
+{#                    <th>Market Cap</th>#}
+{#                    <th>Last Updated</th>#}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#                {% for crypto in cryptos %}#}
+{#                <tr>#}
+{#                    <td>#}
+{#                        <img src="{{ crypto['image'] }}" alt="{{ crypto['name'] }}" width="20">#}
+{#                        {{ crypto['name'] }}#}
+{#                    </td>#}
+{#                    <td>${{ crypto['current_price'] }}</td>#}
+{#                    <td>{{ crypto['price_change_percentage_1h_in_currency'] | round(2) if crypto['price_change_percentage_1h_in_currency'] else 'N/A' }}</td>#}
+{#                    <td>{{ crypto['price_change_percentage_24h_in_currency'] | round(2) if crypto['price_change_percentage_24h_in_currency'] else 'N/A' }}</td>#}
+{#                    <td>{{ crypto['price_change_percentage_7d_in_currency'] | round(2) if crypto['price_change_percentage_7d_in_currency'] else 'N/A' }}</td>#}
+{#                    <td>${{ crypto['total_volume']  }}</td>#}
+{#                    <td>${{ crypto['market_cap']  }}</td>#}
+{#                    <td>{{ crypto['last_updated'] }}</td>#}
+{#                </tr>#}
+{#                {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
+  <table border="1">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Symbol</th>
+            <th>Price (USD)</th>
+            <th>24h Change (%)</th>
+            <th>Market Cap</th>
+            <th>Last Updated</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for crypto in cryptos %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ crypto['name'] }}</td>
+            <td>{{ crypto['symbol'] }}</td>
+            <td>${{ crypto['price'] }}</td>
+            <td>{{ crypto['change_24h'] }}%</td>
+            <td>${{ crypto['market_cap'] }}</td>
+            <td>{{ crypto['last_updated'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
         <h2>Analyze a Cryptocurrency</h2>
         <form method="POST">
             <input type="text" name="crypto_name" placeholder="Enter crypto name (e.g., Solana)">
             <button type="submit">Analyze</button>
         </form>
+    <h2>Start a Chat with Our Telegram Bot</h2>
+    <a href="https://t.me/CryptoPredictions2025Bot" target="_blank">
+        <img src="https://telegram.org/img/t_logo.png" alt="Telegram" width="30">
+        Chat with Bot
+    </a>
 
 {% if analysis %}
             <h3>{{ analysis }}</h3>
