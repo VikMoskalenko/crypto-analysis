@@ -41,7 +41,33 @@
 {#                {% endfor %}#}
 {#            </tbody>#}
 {#        </table>#}
-  <table border="1">
+{#  <table border="1">#}
+{#    <thead>#}
+{#        <tr>#}
+{#            <th>Rank</th>#}
+{#            <th>Name</th>#}
+{#            <th>Symbol</th>#}
+{#            <th>Price (USD)</th>#}
+{#            <th>24h Change (%)</th>#}
+{#            <th>Market Cap</th>#}
+{#            <th>Last Updated</th>#}
+{#        </tr>#}
+{#    </thead>#}
+{#    <tbody>#}
+{#        {% for crypto in cryptos %}#}
+{#        <tr>#}
+{#            <td>{{ loop.index }}</td>#}
+{#            <td>{{ crypto['name'] }}</td>#}
+{#            <td>{{ crypto['symbol'] }}</td>#}
+{#            <td>${{ crypto['current_price'] }}</td>#}
+{#            <td>{{ crypto['change_24h'] }}%</td>#}
+{#            <td>${{ crypto['market_cap'] }}</td>#}
+{#            <td>{{ crypto['last_updated'] }}</td>#}
+{#        </tr>#}
+{#        {% endfor %}#}
+{#    </tbody>#}
+{#</table>#}
+    <table border="1" class="crypto-table">
     <thead>
         <tr>
             <th>Rank</th>
@@ -49,7 +75,7 @@
             <th>Symbol</th>
             <th>Price (USD)</th>
             <th>24h Change (%)</th>
-            <th>Market Cap</th>
+{#            <th>Market Cap (USD)</th>#}
             <th>Last Updated</th>
         </tr>
     </thead>
@@ -59,14 +85,27 @@
             <td>{{ loop.index }}</td>
             <td>{{ crypto['name'] }}</td>
             <td>{{ crypto['symbol'] }}</td>
-            <td>${{ crypto['price'] }}</td>
-            <td>{{ crypto['change_24h'] }}%</td>
-            <td>${{ crypto['market_cap'] }}</td>
+{#            <td>${{ "{:,.8f}".format(crypto['current_price'] | float) }}</td>#}
+            <td>${{ "{:,.8f}".format(crypto['current_price'] | float) if crypto.get('current_price') else "0.00000000" }}</td>
+
+            <td>
+                {% if crypto['change_24h'] is not none %}
+                    {% if crypto['change_24h'] < 0 %}
+                        <span style="color: red;">{{ crypto['change_24h'] | round(2) }}%</span>
+                    {% else %}
+                        <span style="color: green;">{{ crypto['change_24h'] | round(2) }}%</span>
+                    {% endif %}
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+{#            <td>${{ "{:,.0f}".format(crypto['market_cap']) }}</td>#}
             <td>{{ crypto['last_updated'] }}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
 
         <h2>Analyze a Cryptocurrency</h2>
         <form method="POST">
