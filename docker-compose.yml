@@ -6,3 +6,56 @@
 #    ports:
 #      - 5000:5000
 #
+version: "3.8"
+
+services:
+  web:
+    build: .
+    container_name: flask_app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_NAME=postgres
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=1234
+      - DATABASE_PORT=5432
+    networks:
+      - app_network
+
+  telegram_bot:
+    build: .
+    container_name: telegram_bot
+    command: ["python", "telegramBotCrypto.py"]
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_NAME=postgres
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=1234
+      - DATABASE_PORT=5432
+    networks:
+      - app_network
+
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5433:5432"  # Change the left-hand side to 5433 (host machine)
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  postgres_data:

@@ -1,33 +1,33 @@
 import os
 from flask import Flask, render_template, request
 import requests
-from flask_login import UserMixin, LoginManager
+#from flask_login import UserMixin, LoginManager
 from datetime import datetime
 import psycopg2
 app = Flask(__name__)
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = "login"
+# login_manager = LoginManager()
+# login_manager.init_app(app)
+# login_manager.login_view = "login"
 
 BINANCE_API_URL = "https://api.binance.com"
 def get_db_connection():
     return psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="1234", port=5432)
 
-class User(UserMixin):
-    def __init__(self, id, username, password):
-        self.id = id
-        self.username = username
-        self.password = password
+# class User(UserMixin):
+#     def __init__(self, id, username, password):
+#         self.id = id
+#         self.username = username
+#         self.password = password
 
-@login_manager.user_loader
-def load_user(user_id):
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute("SELECT id, username, password FROM customers WHERE id = %s", (user_id,))
-    user = cur.fetchone()
-    cur.close()
-    conn.close()
-    return User(user[0], user[1], user[2]) if user else None
+# @login_manager.user_loader
+# def load_user(user_id):
+#     conn = get_db_connection()
+#     cur = conn.cursor()
+#     cur.execute("SELECT id, username, password FROM customers WHERE id = %s", (user_id,))
+#     user = cur.fetchone()
+#     cur.close()
+#     conn.close()
+#     return User(user[0], user[1], user[2]) if user else None
 
 
 def get_top_cryptos():
@@ -53,7 +53,37 @@ def get_top_cryptos():
             print(f"Skipping invalid crypto entry due to error: {e}")
 
     return top_cryptos
-
+# def get_top_cryptos():
+#     url = "https://api.coingecko.com/api/v3/coins/markets"
+#     params = {
+#         "vs_currency": "usd",
+#         "order": "market_cap_desc",  # Sort by market cap (largest first)
+#         "per_page": 10,  # Get top 10
+#         "page": 1,
+#         "sparkline": False
+#     }
+#
+#     response = requests.get(url, params=params)
+#
+#     if response.status_code != 200:
+#         print("Error fetching data:", response.text)
+#         return []
+#
+#     data = response.json()
+#     top_cryptos = []
+#
+#     for crypto in data:
+#         top_cryptos.append({
+#             "name": crypto.get("name", "Unknown"),
+#             "symbol": crypto.get("symbol", "Unknown").upper(),
+#             "current_price": crypto.get("current_price", 0),
+#             "change_24h": crypto.get("price_change_percentage_24h", 0),
+#             "total_volume": crypto.get("total_volume", 0),
+#             "market_cap": crypto.get("market_cap", 0),
+#             "last_updated": datetime.utcnow().strftime("%d/%m/%Y %H:%M")
+#         })
+#
+#     return top_cryptos
 
 def get_30d_trading_volume(symbol):
     url = f"{BINANCE_API_URL}/api/v3/klines"
